@@ -5,14 +5,14 @@ import 'item_type.dart';
 class FeedItem {
   final int id;
   final String title;
-  final int points;
+  final int? points;
   final String user;
   final int time;
   final String timeAgo;
   final int commentsCount;
   final ItemType type;
   final String url;
-  final String domain;
+  final String? domain;
 
   FeedItem({
     required this.id,
