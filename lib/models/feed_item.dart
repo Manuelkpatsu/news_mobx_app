@@ -11,7 +11,7 @@ class FeedItem {
   final String timeAgo;
   final int commentsCount;
   final ItemType type;
-  final String url;
+  final String? url;
   final String? domain;
 
   FeedItem({

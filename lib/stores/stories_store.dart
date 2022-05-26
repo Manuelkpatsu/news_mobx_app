@@ -60,7 +60,7 @@ abstract class _StoriesStore with Store {
           : (await _hnpwaClient.newest(page: _currentPage));
       // some items from the official API don't have a URL but the HNPWA API will put "item?={id}" as the URL so need to filter those out
       feedItems.addAll(feed.items!.where((fi) {
-        var uri = Uri.tryParse(fi.url);
+        var uri = Uri.tryParse(fi.url!);
         return uri != null && uri.hasScheme;
       }));
       hasNextPage = feed.hasNextPage;

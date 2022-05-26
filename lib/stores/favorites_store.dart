@@ -51,7 +51,7 @@ abstract class _FavoritesStore with Store {
         'time': fi.time,
         'time_ago': fi.timeAgo,
         'comments_count': fi.commentsCount,
-        'url': fi.url,
+        'url': fi.url!,
         'domain': fi.domain!,
       });
     }).toList();
