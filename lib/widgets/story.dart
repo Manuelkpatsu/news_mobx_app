@@ -46,7 +46,7 @@ class Story extends StatelessWidget {
                     ),
                     TextSpacer(
                       Text(
-                        _item.url!,
+                        _item.url ?? '',
                         overflow: TextOverflow.ellipsis,
                         style: Theme.of(context).textTheme.subtitle2,
                       ),
