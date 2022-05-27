@@ -25,8 +25,7 @@ abstract class _SettingsStore with Store {
   }
 
   Future<void> showPrivacyPolicy() async {
-    final uri =
-        Uri.parse('https://crossingthestreams.io/supnews-privacy-policy/');
+    final uri = Uri.parse('https://manuel-ahuno.firebaseapp.com/');
 
     canLaunchUrl(uri).then((bool result) {
       if (result == true) {

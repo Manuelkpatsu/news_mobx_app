@@ -47,7 +47,7 @@ abstract class _FavoritesStore with Store {
         'id': fi.id,
         'title': fi.title,
         'score': fi.score!,
-        'user': fi.by,
+        'user': fi.by!,
         'time': fi.time,
         'descendants': fi.descendants,
         'url': fi.url!,

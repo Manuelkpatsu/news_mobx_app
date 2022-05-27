@@ -7,10 +7,10 @@ class FeedItem extends Equatable {
   final int id;
   final String title;
   final int? score;
-  final String by;
+  final String? by;
   final int time;
   final int descendants;
-  final ItemType type;
+  final ItemType? type;
   final String? url;
 
   const FeedItem(
@@ -31,7 +31,7 @@ class FeedItem extends Equatable {
         by = json['by'],
         time = json['time'],
         descendants = json['descendants'],
-        type = itemTypeFromJson(json['type']),
+        type = json['type'] != null ? itemTypeFromJson(json['type']) : null,
         url = json['url'];
 
   @override
