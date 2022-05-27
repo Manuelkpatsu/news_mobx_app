@@ -1,75 +1,48 @@
+import 'package:equatable/equatable.dart';
 import 'package:news_mobx_app/common/enums.dart';
 
 import 'item_type.dart';
 
-class FeedItem {
+class FeedItem extends Equatable {
   final int id;
   final String title;
-  final int? points;
-  final String user;
+  final int? score;
+  final String by;
   final int time;
-  final String timeAgo;
-  final int commentsCount;
+  final int descendants;
   final ItemType type;
   final String? url;
-  final String? domain;
 
-  FeedItem({
-    required this.id,
-    required this.title,
-    required this.points,
-    required this.user,
-    required this.time,
-    required this.timeAgo,
-    required this.commentsCount,
-    required this.type,
-    required this.url,
-    required this.domain,
-  });
+  const FeedItem(
+    this.id,
+    this.title,
+    this.score,
+    this.by,
+    this.time,
+    this.descendants,
+    this.type,
+    this.url,
+  );
 
   FeedItem.fromJson(Map<String, dynamic> json)
       : id = json['id'],
         title = json['title'],
-        points = json['points'],
-        user = json['user'],
+        score = json['score'],
+        by = json['by'],
         time = json['time'],
-        timeAgo = json['time_ago'],
-        commentsCount = json['comments_count'],
+        descendants = json['descendants'],
         type = itemTypeFromJson(json['type']),
-        url = json['url'],
-        domain = json['domain'];
+        url = json['url'];
 
   @override
-  String toString() {
-    return 'FeedItem{id: $id, title: $title, points: $points, user: $user, time: $time, timeAgo: $timeAgo, commentsCount: $commentsCount, type: $type, url: $url, domain: $domain}';
-  }
-
-  @override
-  bool operator ==(Object other) =>
-      identical(this, other) ||
-      other is FeedItem &&
-          runtimeType == other.runtimeType &&
-          id == other.id &&
-          title == other.title &&
-          points == other.points &&
-          user == other.user &&
-          time == other.time &&
-          timeAgo == other.timeAgo &&
-          commentsCount == other.commentsCount &&
-          type == other.type &&
-          url == other.url &&
-          domain == other.domain;
-
-  @override
-  int get hashCode =>
-      id.hashCode ^
-      title.hashCode ^
-      points.hashCode ^
-      user.hashCode ^
-      time.hashCode ^
-      timeAgo.hashCode ^
-      commentsCount.hashCode ^
-      type.hashCode ^
-      url.hashCode ^
-      domain.hashCode;
+  List<Object?> get props => [
+        id,
+        title,
+        score,
+        by,
+        time,
+        descendants,
+        type,
+        url,
+      ];
 }

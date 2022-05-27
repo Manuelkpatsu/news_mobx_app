@@ -1,7 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
-import 'package:news_mobx_app/repository/client.dart';
 import 'package:provider/provider.dart';
 
 import '../screens/favorites_screen.dart';
@@ -11,7 +10,7 @@ import '../screens/top_stories_screen.dart';
 import '../stores/favorites_store.dart';
 import '../stores/new_stories_store.dart';
 import '../stores/settings_store.dart';
-import '../stores/top_stories_store.dart';
+import 'package:news_mobx_app/stores/top_stories_store.dart';
 
 class ThemeableApp extends StatelessWidget {
   final SettingsStore settingsStore;
@@ -62,34 +61,26 @@ class ThemeableApp extends StatelessWidget {
               tabBuilder: (BuildContext context, int index) {
                 switch (index) {
                   case 0:
-                    return ProxyProvider<HnpwaClient, NewStoriesStore>(
-                      update: (_, hnpwaClient, __) =>
-                          NewStoriesStore(hnpwaClient),
-                      child: Consumer<NewStoriesStore>(
-                        builder: ((context, value, _) => Material(
-                              child: NewStoriesScreen(value),
-                            )),
-                      ),
+                    return Consumer<NewStoriesStore>(
+                      builder: ((_, value, __) => Material(
+                            child: NewStoriesScreen(value),
+                          )),
                     );
                   case 1:
-                    return ProxyProvider<HnpwaClient, TopStoriesStore>(
-                      update: (_, hnpwaClient, __) =>
-                          TopStoriesStore(hnpwaClient),
-                      child: Consumer<TopStoriesStore>(
-                        builder: ((context, value, _) => Material(
-                              child: TopStoriesScreen(value),
-                            )),
-                      ),
+                    return Consumer<TopStoriesStore>(
+                      builder: ((_, value, __) => Material(
+                            child: TopStoriesScreen(value),
+                          )),
                     );
                   case 2:
                     return Consumer<FavoritesStore>(
-                      builder: (context, value, _) => Material(
+                      builder: (_, value, __) => Material(
                         child: FavoritesScreen(value),
                       ),
                     );
                   case 3:
                     return Consumer<SettingsStore>(
-                      builder: (context, value, _) => Material(
+                      builder: (_, value, __) => Material(
                         child: SettingsScreen(value),
                       ),
                     );

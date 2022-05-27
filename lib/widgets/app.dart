@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:news_mobx_app/services/preferences_service.dart';
+import 'package:news_mobx_app/stores/new_stories_store.dart';
+import 'package:news_mobx_app/stores/top_stories_store.dart';
 import 'package:provider/provider.dart';
 
 import '../repository/client.dart';
@@ -35,7 +37,13 @@ class App extends StatelessWidget {
         ),
         Provider<StoryService>(
           create: (_) => StoryService(),
-        )
+        ),
+        ProxyProvider<HnpwaClient, NewStoriesStore>(
+          update: (_, hnpwaClient, __) => NewStoriesStore(hnpwaClient),
+        ),
+        ProxyProvider<HnpwaClient, TopStoriesStore>(
+          update: (_, hnpwaClient, __) => TopStoriesStore(hnpwaClient),
+        ),
       ],
       child: Consumer<SettingsStore>(
         builder: (context, value, _) => ThemeableApp(value),

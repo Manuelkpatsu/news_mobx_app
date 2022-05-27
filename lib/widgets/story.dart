@@ -29,7 +29,7 @@ class Story extends StatelessWidget {
               child: CircleAvatar(
                 child: Center(
                   child: Text(
-                    _item.points.toString(),
+                    _item.score.toString(),
                   ),
                 ),
               ),
@@ -53,7 +53,7 @@ class Story extends StatelessWidget {
                     ),
                     TextSpacer(
                       Text(
-                        '${_item.user} - ${DateFormat().format(
+                        '${_item.by} - ${DateFormat().format(
                           DateTime.fromMillisecondsSinceEpoch(
                               _item.time * 1000),
                         )}',
@@ -61,7 +61,7 @@ class Story extends StatelessWidget {
                       ),
                     ),
                     Text(
-                      '${_item.commentsCount} ${_item.commentsCount == 1 ? 'comment' : 'comments'}',
+                      '${_item.descendants} ${_item.descendants == 1 ? 'comment' : 'comments'}',
                       style: Theme.of(context).textTheme.subtitle2,
                     ),
                   ],
@@ -76,44 +76,45 @@ class Story extends StatelessWidget {
       },
       onLongPress: () {
         showModalBottomSheet(
-            context: context,
-            builder: (BuildContext bc) {
-              return Observer(
-                builder: (_) => Wrap(
-                  children: <Widget>[
+          context: context,
+          builder: (BuildContext bc) {
+            return Observer(
+              builder: (_) => Wrap(
+                children: <Widget>[
+                  ListTile(
+                    leading: const Icon(Icons.favorite),
+                    title: Text(favouritesStore.isInFavourites(_item)
+                        ? 'Remove from favourites'
+                        : 'Add to favourites'),
+                    onTap: () {
+                      favouritesStore.isInFavourites(_item)
+                          ? favouritesStore.removeFavourite(_item)
+                          : favouritesStore.addFavourite(_item);
+                      Navigator.of(context).pop();
+                    },
+                  ),
+                  ListTile(
+                    leading: const Icon(Icons.open_in_browser),
+                    title: const Text('Open in browser'),
+                    onTap: () async {
+                      await storyService.openInBrowser(_item.url!);
+                      Navigator.of(context).pop();
+                    },
+                  ),
+                  if (_item.url != null)
                     ListTile(
-                      leading: const Icon(Icons.favorite),
-                      title: Text(favouritesStore.isInFavourites(_item)
-                          ? 'Remove from favourites'
-                          : 'Add to favourites'),
-                      onTap: () {
-                        favouritesStore.isInFavourites(_item)
-                            ? favouritesStore.removeFavourite(_item)
-                            : favouritesStore.addFavourite(_item);
-                        Navigator.of(context).pop();
-                      },
-                    ),
-                    ListTile(
-                      leading: const Icon(Icons.open_in_browser),
-                      title: const Text('Open in browser'),
+                      leading: const Icon(Icons.share),
+                      title: const Text('Share'),
                       onTap: () async {
-                        await storyService.openInBrowser(_item.url!);
+                        await sharingService.share(_item.url!);
                         Navigator.of(context).pop();
                       },
                     ),
-                    if (_item.url != null)
-                      ListTile(
-                        leading: const Icon(Icons.share),
-                        title: const Text('Share'),
-                        onTap: () async {
-                          await sharingService.share(_item.url!);
-                          Navigator.of(context).pop();
-                        },
-                      ),
-                  ],
-                ),
-              );
-            });
+                ],
+              ),
+            );
+          },
+        );
       },
     );
   }

@@ -46,13 +46,11 @@ abstract class _FavoritesStore with Store {
       return jsonEncode(<String, Object>{
         'id': fi.id,
         'title': fi.title,
-        'points': fi.points!,
-        'user': fi.user,
+        'score': fi.score!,
+        'user': fi.by,
         'time': fi.time,
-        'time_ago': fi.timeAgo,
-        'comments_count': fi.commentsCount,
+        'descendants': fi.descendants,
         'url': fi.url!,
-        'domain': fi.domain!,
       });
     }).toList();
   }

@@ -4,8 +4,6 @@ ItemType itemTypeFromJson(String type) {
   switch (type) {
     case 'job':
       return ItemType.job;
-    case 'ask':
-      return ItemType.ask;
     case 'comment':
       return ItemType.comment;
     case 'poll':
